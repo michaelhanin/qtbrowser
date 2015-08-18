@@ -78,6 +78,7 @@ void help(void) {
 #endif
     "  --validate-ca=<on|off>         Validate Root CA certificates (default: on)   \n"
     "  --cookie-storage=<path>        Set cookie storage path                       \n"
+    "  --rotate=<1|3>               Rotation (default: 0)   \n"
     " ------------------------------------------------------------------------------\n"
     " http://www.metrological.com - (c) 2014 Metrological - support@metrological.com\n"
     "");
@@ -244,6 +245,15 @@ int main(int argc, char *argv[]) {
           // Create persistent cookie-jar, path to the cookie jar is set to the
           //   default data path unless it was overruled via command-line option
           settings->enablePersistentCookieStorage(cookiePath);
+        }else if (strncmp("--rotate", s, nlen) == 0) {
+            g.rotate(90*(unsigned int)atoi(value));
+
+            displaySize = QSizeF(
+                size.height(),
+                size.width()
+            );
+    
+            view.resize(displaySize);
         }
     }
 
